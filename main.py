@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import filedialog
 import os
 import shutil
+from tkinter import filedialog
+
 
 def move_files():
     source_path = source_entry.get()
@@ -58,7 +59,7 @@ extensions_label = tk.Label(root, text="Enter Extensions (comma separated)", fon
 extensions_label.pack(pady=5)
 extensions_entry = tk.Entry(root, width=40, font=("Helvetica", 12, "bold"), borderwidth=2, relief="solid", bd=2)
 extensions_entry.pack(pady=10)
-extensions_entry.insert(0, ".package, .ts4script")
+extensions_entry.insert(0, ".package, .ts4script") # Default extensions
 
 start_button = tk.Button(root, text="Move Files", command=move_files, bg="#2196F3", fg="white", font=("Helvetica", 14, "bold"), relief="raised", bd=2)
 start_button.pack(pady=20)
