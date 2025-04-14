@@ -3,7 +3,6 @@ import os
 import shutil
 from tkinter import filedialog
 
-
 def move_files():
     source_path = source_entry.get()
     destination_path = destination_entry.get()
