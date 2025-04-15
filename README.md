@@ -7,6 +7,8 @@ File Mover is a simple Tkinter-based GUI tool that allows you to move files with
 ## Note
 Messy code & ugly UI but it works. Let me know if you need any changes!
 
+False positives on VirusTotal: https://www.virustotal.com/gui/file/e6b4e6451fb11e801d568d348ad2e001329282302e2dfdf59931732a7acbc3bf
+
 ## Features
 
 - Select source and destination directories.
