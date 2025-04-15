@@ -1,7 +1,21 @@
 import tkinter as tk
 import os
 import shutil
+import zipfile
+import rarfile
+import py7zr
 from tkinter import filedialog
+
+def extract_archive(file_path, extract_to):
+    if file_path.endswith('.zip'):
+        with zipfile.ZipFile(file_path, 'r') as zip_ref:
+            zip_ref.extractall(extract_to)
+    elif file_path.endswith('.rar'):
+        with rarfile.RarFile(file_path) as rar_ref:
+            rar_ref.extractall(extract_to)
+    elif file_path.endswith('.7z'):
+        with py7zr.SevenZipFile(file_path, mode='r') as sz_ref:
+            sz_ref.extractall(extract_to)
 
 def move_files():
     source_path = source_entry.get()
@@ -10,8 +24,15 @@ def move_files():
     
     for root, _, files in os.walk(source_path, topdown=False):
         for file in files:
-            if any(file.endswith(ext) for ext in extensions):
-                shutil.move(os.path.join(root, file), os.path.join(destination_path, file))
+            file_path = os.path.join(root, file)
+
+            if file.endswith(('.zip', '.rar', '.7z')):
+                extract_to = os.path.join(destination_path, os.path.splitext(file)[0])
+                os.makedirs(extract_to, exist_ok=True)
+                extract_archive(file_path, extract_to)
+                os.remove(file_path)  # Remove the archive after extraction
+            elif any(file.endswith(ext) for ext in extensions):
+                shutil.move(file_path, os.path.join(destination_path, file))
 
     for root, dirs, _ in os.walk(source_path, topdown=False):
         for dir in dirs:
